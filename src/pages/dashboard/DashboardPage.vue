@@ -9,7 +9,7 @@ import ReminderPanel from '@/components/dashboard/ReminderPanel.vue';
 
 <template>
   <AppLayout>
-    <BasePageHeader title="Dashboard" subtitle="Portal administrativo/comercial" action-label="Nova proposta" />
+    <BasePageHeader title="Dashboard" subtitle="Portal administrativo/comercial" action-label="Nova proposta" action-to="/proposals/new" />
     <GlobalSearchBar />
     <SummaryCards />
     <v-row class="mt-2">

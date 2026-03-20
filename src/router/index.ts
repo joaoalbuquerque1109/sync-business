@@ -9,6 +9,7 @@ import ProductFormPage from '@/pages/products/ProductFormPage.vue';
 import ProposalsListPage from '@/pages/proposals/ProposalsListPage.vue';
 import ProposalFormPage from '@/pages/proposals/ProposalFormPage.vue';
 import UsersPermissionsPage from '@/pages/users/UsersPermissionsPage.vue';
+import UserFormPage from '@/pages/users/UserFormPage.vue';
 import ExcelImportPage from '@/pages/imports/ExcelImportPage.vue';
 import AuditLogsPage from '@/pages/audits/AuditLogsPage.vue';
 
@@ -22,6 +23,7 @@ const routes: RouteRecordRaw[] = [
   { path: '/proposals', name: 'proposals', component: ProposalsListPage, meta: { requiresAuth: true } },
   { path: '/proposals/new', name: 'proposals-new', component: ProposalFormPage, meta: { requiresAuth: true } },
   { path: '/users', name: 'users', component: UsersPermissionsPage, meta: { requiresAuth: true } },
+  { path: '/users/new', name: 'users-new', component: UserFormPage, meta: { requiresAuth: true } },
   { path: '/imports', name: 'imports', component: ExcelImportPage, meta: { requiresAuth: true } },
   { path: '/audits', name: 'audits', component: AuditLogsPage, meta: { requiresAuth: true } },
 ];

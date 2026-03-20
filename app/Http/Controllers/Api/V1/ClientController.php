@@ -2,9 +2,11 @@
 
 namespace App\Http\Controllers\Api\V1;
 
+use App\Http\Requests\Client\StoreClientRequest;
 use App\Http\Resources\ClientResource;
 use App\Models\Client;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class ClientController extends Controller
 {
@@ -22,9 +24,16 @@ class ClientController extends Controller
         ]);
     }
 
-    public function store(Request $request)
+    public function store(StoreClientRequest $request)
     {
-        return $this->success($request->all(), 'Endpoint de criação de cliente pronto para implementação completa');
+        $client = Client::query()->create([
+            ...$request->validated(),
+            'source' => 'manual',
+            'created_by' => Auth::id(),
+            'updated_by' => Auth::id(),
+        ]);
+
+        return $this->success(new ClientResource($client), 'Cliente criado com sucesso');
     }
 
     public function show(Client $client)
@@ -34,11 +43,11 @@ class ClientController extends Controller
 
     public function update(Request $request, Client $client)
     {
-        return $this->success(['id' => $client->id], 'Endpoint de edição de cliente pronto para implementação completa');
+        return $this->success(['id' => $client->id], 'Edicao de cliente ainda nao implementada');
     }
 
     public function destroy(Client $client)
     {
-        return $this->success(['id' => $client->id], 'Endpoint de exclusão de cliente pronto para implementação completa');
+        return $this->success(['id' => $client->id], 'Exclusao de cliente ainda nao implementada');
     }
 }

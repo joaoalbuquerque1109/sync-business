@@ -2,9 +2,11 @@
 
 namespace App\Http\Controllers\Api\V1;
 
+use App\Http\Requests\Product\StoreProductRequest;
 use App\Http\Resources\ProductResource;
 use App\Models\Product;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class ProductController extends Controller
 {
@@ -22,9 +24,16 @@ class ProductController extends Controller
         ]);
     }
 
-    public function store(Request $request)
+    public function store(StoreProductRequest $request)
     {
-        return $this->success($request->all(), 'Endpoint de criação de produto pronto para implementação completa');
+        $product = Product::query()->create([
+            ...$request->validated(),
+            'source' => 'manual',
+            'created_by' => Auth::id(),
+            'updated_by' => Auth::id(),
+        ]);
+
+        return $this->success(new ProductResource($product), 'Produto criado com sucesso');
     }
 
     public function show(Product $product)
@@ -34,11 +43,11 @@ class ProductController extends Controller
 
     public function update(Request $request, Product $product)
     {
-        return $this->success(['id' => $product->id], 'Endpoint de edição de produto pronto para implementação completa');
+        return $this->success(['id' => $product->id], 'Edicao de produto ainda nao implementada');
     }
 
     public function destroy(Product $product)
     {
-        return $this->success(['id' => $product->id], 'Endpoint de exclusão de produto pronto para implementação completa');
+        return $this->success(['id' => $product->id], 'Exclusao de produto ainda nao implementada');
     }
 }

@@ -1,10 +1,10 @@
 import { http } from '@/plugins/axios';
 
-export const productsApi = {
+export const usersApi = {
   list(params: Record<string, unknown> = {}) {
-    return http.get('/products', { params });
+    return http.get('/users', { params });
   },
   create(payload: Record<string, unknown>) {
-    return http.post('/products', payload);
+    return http.post('/users', payload);
   },
 };

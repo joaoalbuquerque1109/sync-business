@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Api\V1;
 
 use App\Actions\Proposal\CreateProposalAction;
+use App\Http\Requests\Proposal\StoreProposalRequest;
 use App\Http\Resources\ProposalResource;
 use App\Models\Proposal;
 use Illuminate\Http\Request;
@@ -28,7 +29,7 @@ class ProposalController extends Controller
         ]);
     }
 
-    public function store(Request $request)
+    public function store(StoreProposalRequest $request)
     {
         $proposal = $this->createProposalAction->execute($request->all());
 

@@ -14,15 +14,21 @@ class StoreProposalRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'client_id' => ['required', 'integer'],
-            'responsible_user_id' => ['required', 'integer'],
-            'proposal_template_id' => ['nullable', 'integer'],
+            'client_id' => ['required', 'integer', 'exists:clients,id'],
+            'responsible_user_id' => ['nullable', 'integer', 'exists:users,id'],
+            'proposal_template_id' => ['nullable', 'integer', 'exists:proposal_templates,id'],
             'status' => ['required', 'string'],
             'issue_date' => ['required', 'date'],
             'valid_until' => ['nullable', 'date'],
-            'items' => ['array'],
+            'title' => ['nullable', 'string', 'max:255'],
+            'general_notes' => ['nullable', 'string'],
+            'currency' => ['nullable', 'string', 'size:3'],
+            'items' => ['required', 'array', 'min:1'],
+            'items.*.product_id' => ['nullable', 'integer', 'exists:products,id'],
+            'items.*.description' => ['nullable', 'string'],
             'items.*.quantity' => ['required', 'numeric'],
             'items.*.unit_price' => ['required', 'numeric'],
+            'items.*.discount_amount' => ['nullable', 'numeric'],
         ];
     }
 }
