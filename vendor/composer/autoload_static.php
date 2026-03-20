@@ -52,6 +52,7 @@ class ComposerStaticInitd9525dadc723adb6609aed384b0fce25
         'T' =>
         array (
             'TijsVerkoyen\\CssToInlineStyles\\' => 31,
+            'Tests\\' => 6,
             'Termwind\\' => 9,
         ),
         'S' =>
@@ -155,6 +156,7 @@ class ComposerStaticInitd9525dadc723adb6609aed384b0fce25
             'Dflydev\\DotAccessData\\' => 22,
             'DeepCopy\\' => 9,
             'Database\\Seeders\\' => 17,
+            'Database\\Factories\\' => 19,
         ),
         'C' =>
         array (
@@ -187,6 +189,10 @@ class ComposerStaticInitd9525dadc723adb6609aed384b0fce25
         'TijsVerkoyen\\CssToInlineStyles\\' =>
         array (
             0 => __DIR__ . '/..' . '/tijsverkoyen/css-to-inline-styles/src',
+        ),
+        'Tests\\' =>
+        array (
+            0 => __DIR__ . '/../..' . '/tests',
         ),
         'Termwind\\' =>
         array (
@@ -473,6 +479,10 @@ class ComposerStaticInitd9525dadc723adb6609aed384b0fce25
         'Database\\Seeders\\' =>
         array (
             0 => __DIR__ . '/../..' . '/database/seeders',
+        ),
+        'Database\\Factories\\' =>
+        array (
+            0 => __DIR__ . '/../..' . '/database/factories',
         ),
         'Cron\\' =>
         array (
