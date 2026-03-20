@@ -1,0 +1,26 @@
+import 'vuetify/styles';
+import { createVuetify } from 'vuetify';
+import { aliases, mdi } from 'vuetify/iconsets/mdi';
+
+export default createVuetify({
+  theme: {
+    defaultTheme: 'corporate',
+    themes: {
+      corporate: {
+        dark: false,
+        colors: {
+          primary: '#b71c1c',
+          secondary: '#0f766e',
+          accent: '#e53935',
+          background: '#f5f7fa',
+          surface: '#ffffff',
+        },
+      },
+    },
+  },
+  icons: {
+    defaultSet: 'mdi',
+    aliases,
+    sets: { mdi },
+  },
+});
