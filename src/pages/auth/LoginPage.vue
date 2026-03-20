@@ -1,21 +1,43 @@
 <script setup lang="ts">
+import axios from 'axios';
 import { reactive, ref } from 'vue';
 import { useRouter } from 'vue-router';
+import { authApi } from '@/api/authApi';
 import AuthLayout from '@/layouts/AuthLayout.vue';
 import { useAuthStore } from '@/stores/auth';
 
 const router = useRouter();
 const auth = useAuthStore();
 const showPassword = ref(false);
+const loading = ref(false);
+const errorMessage = ref('');
 const form = reactive({ login: 'admin', password: 'admin' });
 
-function submit() {
-  auth.setSession({
-    token: 'dev-token',
-    user: { name: 'Administrador', email: 'admin@local.test' },
-  });
+async function submit() {
+  loading.value = true;
+  errorMessage.value = '';
 
-  router.push({ name: 'dashboard' });
+  try {
+    const response = await authApi.login({
+      login: form.login,
+      password: form.password,
+    });
+
+    auth.setSession({
+      token: response.data.data.token,
+      user: response.data.data.user,
+    });
+
+    await router.push({ name: 'dashboard' });
+  } catch (error) {
+    if (axios.isAxiosError(error)) {
+      errorMessage.value = error.response?.data?.message || 'Nao foi possivel entrar.';
+    } else {
+      errorMessage.value = 'Nao foi possivel entrar.';
+    }
+  } finally {
+    loading.value = false;
+  }
 }
 </script>
 
@@ -25,7 +47,8 @@ function submit() {
       <v-card-text class="pa-8">
         <div class="text-h4 text-center font-weight-bold mb-6">Login</div>
         <v-form class="d-flex flex-column ga-4" @submit.prevent="submit">
-          <v-text-field v-model="form.login" label="E-mail ou usuário" variant="outlined" prepend-inner-icon="mdi-account-outline" />
+          <v-alert v-if="errorMessage" type="error" variant="tonal" density="comfortable">{{ errorMessage }}</v-alert>
+          <v-text-field v-model="form.login" label="E-mail ou usuario" variant="outlined" prepend-inner-icon="mdi-account-outline" />
           <v-text-field
             v-model="form.password"
             label="Senha"
@@ -34,7 +57,7 @@ function submit() {
             prepend-inner-icon="mdi-lock-outline"
           />
           <v-checkbox v-model="showPassword" label="Mostrar senha" hide-details />
-          <v-btn color="secondary" size="large" block rounded="pill" type="submit">Entrar</v-btn>
+          <v-btn color="secondary" size="large" block rounded="pill" type="submit" :loading="loading">Entrar</v-btn>
           <div class="d-flex justify-space-between text-body-2 mt-2">
             <a href="#">Recuperar senha</a>
             <a href="#">Cadastrar</a>

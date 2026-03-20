@@ -4,11 +4,13 @@ import { fileURLToPath, URL } from 'node:url';
 
 export default defineConfig({
   plugins: [vue()],
+  publicDir: false,
   resolve: {
     alias: {
       '@': fileURLToPath(new URL('./src', import.meta.url)),
     },
   },
+  base: '/spa/',
   server: {
     port: 5173,
     proxy: {
@@ -21,5 +23,10 @@ export default defineConfig({
         changeOrigin: true,
       },
     },
+  },
+  build: {
+    outDir: 'public/spa',
+    emptyOutDir: true,
+    assetsDir: 'assets',
   },
 });

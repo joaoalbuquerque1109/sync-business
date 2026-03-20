@@ -3,10 +3,17 @@ import { createPinia } from 'pinia';
 import App from './App.vue';
 import router from './router';
 import vuetify from './plugins/vuetify';
+import { useAuthStore } from '@/stores/auth';
 import '@mdi/font/css/materialdesignicons.css';
 
-createApp(App)
-  .use(createPinia())
+const app = createApp(App);
+const pinia = createPinia();
+
+app
+  .use(pinia)
   .use(router)
-  .use(vuetify)
-  .mount('#app');
+  .use(vuetify);
+
+useAuthStore(pinia).initialize();
+
+app.mount('#app');
